@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explora Colombia: información sobre regiones, departamentos, turismo y gastronomía del país."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>Colombia Explorer - Descubre Colombia</title>
+  </head>
+  <body>
+    <header class="banner">
+      <img
+        src="assets/logo.png"
+        alt="Colombia explorer logo"
+        class="logo"
+        width="3%"
+        height="3%"
+      />
+      <h1 class="p-title">Colombia Explorer</h1>
+      <nav role="navigation" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#mapas">Mapas</a></li>
+          <li><a href="#regiones">Regiones</a></li>
+          <li><a href="#departamentos">Departamentos</a></li>
+          <li><a href="#turismo">Turismo</a></li>
+          <li><a href="#gastronomia">Gastronomía</a></li>
+        </ul>
+      </nav>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Cambiar entre modo claro y oscuro"
+        type="button"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji/assets/Sun/3D/sun_3d.png"
+          width="27"
+          height="27"
+          alt="Icono del sol para modo claro"
+        />
+        <img
+          src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji/assets/Crescent%20moon/3D/crescent_moon_3d.png"
+          width="27"
+          height="27"
+          alt="Icono de la luna para modo oscuro"
+        />
+      </button>
+    </header>
+
+    <main role="main">
+      <article id="country-info" aria-labelledby="country-heading">
+        <h2 id="country-heading">Información General</h2>
+
+        <section id="general-info" aria-labelledby="general-info-heading">
+          <!-- Contenido de la API -->
+        </section>
+      </article>
+    </main>
+
+    <footer role="contentinfo">
+      <p>
+        &copy; 2025 Colombia Explorer. Datos obtenidos de
+        <a
+          href="https://api-colombia.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          >API Colombia</a
+        >.
+      </p>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>
