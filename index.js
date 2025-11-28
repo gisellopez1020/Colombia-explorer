@@ -66,6 +66,7 @@ departamentosLink.addEventListener("click", () => {
 
 turismoLink.addEventListener("click", () => {
   updatePageTitle("Turismo");
+  fetchTurismoData();
   setTimeout(triggerAnimation, 10);
 });
 
@@ -168,6 +169,23 @@ async function fetchDepartmentData() {
     renderDepartmentData(data);
   } catch (error) {
     console.error("Error al obtener la información de los departamentos:", error);
+    showErrorMessage();
+  }
+}
+
+// Llamada a la API para la info de turismo
+async function fetchTurismoData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/Touristic"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderTurismoData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de turismo:", error);
     showErrorMessage();
   }
 }
