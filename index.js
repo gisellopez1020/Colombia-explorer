@@ -308,31 +308,37 @@ function renderDepartmentData(data) {
 
 function renderDepartmentCard(dept) {
   return `
-    <article class="department-card" data-department-id="${dept.id}">
-      <div class="department-header">
-        <h3>${dept.name}</h3>
-      </div>
+    <article class="department-card" data-department-id="${dept.id}" aria-labelledby="dept-title-${dept.id}">
+      <header class="department-header">
+        <h3 id="dept-title-${dept.id}">${dept.name}</h3>
+      </header>
 
       <p class="department-description">${dept.description}</p>
 
-      <div class="department-stats">
-        <div class="stat">
-          ${departmentIcons.capital}
-          <span>${dept.cityCapital?.name || 'N/A'}</span>
+      <dl class="department-stats" aria-label="Estadísticas del departamento">
+        <div class="stat" role="group">
+          <dt aria-hidden="true">${departmentIcons.capital}</dt>
+          <dd>
+            ${dept.cityCapital?.name || 'N/A'}
+          </dd>
         </div>
-        <div class="stat">
-          ${departmentIcons.population}
-          <span>${dept.population}</span>
+        <div class="stat" role="group">
+          <dt aria-hidden="true">${departmentIcons.population}</dt>
+          <dd>
+            ${dept.population.toLocaleString('es-CO')}
+          </dd>
         </div>
-        <div class="stat">
-          ${departmentIcons.municipalities}
-          <span>${dept.municipalities} municipios</span>
+        <div class="stat" role="group">
+          <dt aria-hidden="true">${departmentIcons.municipalities}</dt>
+          <dd>
+            ${dept.municipalities} municipios
+          </dd>
         </div>
-      </div>
+      </dl>
 
-      <button class="btn-details" onclick="showDepartmentDetails(${dept.id})">
-        Ver más detalles
-        <i class="fas fa-arrow-right"></i>
+      <button class="btn-details" onclick="showDepartmentDetails(${dept.id})" aria-label="Ver más detalles de ${dept.name}">
+        <span>Ver más detalles</span>
+        <i class="fas fa-arrow-right" aria-hidden="true"></i>
       </button>
     </article>
   `;
@@ -346,84 +352,92 @@ function showDepartmentDetails(departmentId) {
   const modal = document.createElement('div');
   modal.className = 'modal-overlay';
   modal.innerHTML = `
-    <div class="modal-content">
-      <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
-        <i class="fas fa-times"></i>
+    <article class="modal-content">
+      <button class="modal-close" onclick="this.parentElement.parentElement.remove()" aria-label="Cerrar ventana de detalles">
+        <i class="fas fa-times" aria-hidden="true"></i>
       </button>
 
-      <div class="modal-header">
-        <h2>${dept.name}</h2>
-      </div>
+      <header class="modal-header">
+        <h2 id="modal-title">${dept.name}</h2>
+      </header>
 
       <div class="modal-body">
-        <p class="full-description">${dept.description}</p>
+        <section aria-label="Descripción del departamento">
+          <p class="full-description">${dept.description}</p>
+        </section>
 
-        <div class="detail-section">
-          <h3>Información General</h3>
-          <div class="detail-grid">
+        <section class="detail-section" aria-labelledby="general-info-heading">
+          <h3 id="general-info-heading">Información General</h3>
+          <dl class="detail-grid">
             <div class="detail-item">
-              ${icons.capital}
-              <div>
+              <dt aria-hidden="true">${departmentIcons.capital}</dt>
+              <dd>
                 <span class="label">Capital</span>
                 <span class="value">${dept.cityCapital?.name || 'N/A'}</span>
-              </div>
+              </dd>
             </div>
             <div class="detail-item">
-              ${departmentIcons.population}
-              <div>
+              <dt aria-hidden="true">${departmentIcons.population}</dt>
+              <dd>
                 <span class="label">Población</span>
-                <span class="value">${dept.population} habitantes</span>
-              </div>
+                <span class="value">${dept.population.toLocaleString('es-CO')} habitantes</span>
+              </dd>
             </div>
             <div class="detail-item">
-              ${departmentIcons.surface}
-              <div>
+              <dt aria-hidden="true">${departmentIcons.surface}</dt>
+              <dd>
                 <span class="label">Superficie</span>
-                <span class="value">${dept.surface} km²</span>
-              </div>
+                <span class="value">${dept.surface.toLocaleString('es-CO')} km²</span>
+              </dd>
             </div>
             <div class="detail-item">
-              ${departmentIcons.municipalities}
-              <div>
+              <dt aria-hidden="true">${departmentIcons.municipalities}</dt>
+              <dd>
                 <span class="label">Municipios</span>
                 <span class="value">${dept.municipalities}</span>
-              </div>
+              </dd>
             </div>
             <div class="detail-item">
-              ${departmentIcons.phone}
-              <div>
+              <dt aria-hidden="true">${departmentIcons.phone}</dt>
+              <dd>
                 <span class="label">Prefijo telefónico</span>
                 <span class="value">+57 ${dept.phonePrefix}</span>
-              </div>
+              </dd>
             </div>
-          </div>
-        </div>
+          </dl>
+        </section>
 
         ${dept.cityCapital ? `
-          <div class="detail-section">
-            <h3>Sobre ${dept.cityCapital.name}</h3>
+          <section class="detail-section" aria-labelledby="capital-info-heading">
+            <h3 id="capital-info-heading">Sobre ${dept.cityCapital.name}</h3>
             <p>${dept.cityCapital.description}</p>
-            <div class="capital-stats">
-              <div class="stat-box">
-                <i class="fas fa-users"></i>
-                <span>${dept.cityCapital.population}</span>
-                <small>Habitantes</small>
+            <dl class="capital-stats" role="list">
+              <div class="stat-box" role="listitem">
+                <dt aria-hidden="true"><i class="fas fa-users"></i></dt>
+                <dd>
+                  <span>${dept.cityCapital.population.toLocaleString('es-CO')}</span>
+                  <small>Habitantes</small>
+                </dd>
               </div>
-              <div class="stat-box">
-                <i class="fas fa-map"></i>
-                <span>${dept.cityCapital.surface} km²</span>
-                <small>Superficie</small>
+              <div class="stat-box" role="listitem">
+                <dt aria-hidden="true"><i class="fas fa-map"></i></dt>
+                <dd>
+                  <span>${dept.cityCapital.surface.toLocaleString('es-CO')} km²</span>
+                  <small>Superficie</small>
+                </dd>
               </div>
-              <div class="stat-box">
-                <i class="fas fa-envelope"></i>
-                <span>${dept.cityCapital.postalCode}</span>
-                <small>Código postal</small>
+              <div class="stat-box" role="listitem">
+                <dt aria-hidden="true"><i class="fas fa-envelope"></i></dt>
+                <dd>
+                  <span>${dept.cityCapital.postalCode}</span>
+                  <small>Código postal</small>
+                </dd>
               </div>
-            </div>
-          </div>
+            </dl>
+          </section>
         ` : ''}
       </div>
-    </div>
+    </article>
   `;
 
   document.body.appendChild(modal);
