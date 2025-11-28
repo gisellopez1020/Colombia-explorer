@@ -398,7 +398,7 @@ body.dark-mode .maps-section h3 {
 }
 
 .map-card {
-  background: rgba(0, 0, 0, 0.03);
+  background: linear-gradient(135deg, rgba(73, 141, 250, 0.1) 0%, rgba(32, 125, 197, 0.1) 100%);
   border: 2px solid rgba(73, 141, 250, 0.3);
   border-radius: 15px;
   padding: 20px;
@@ -407,7 +407,7 @@ body.dark-mode .maps-section h3 {
 }
 
 body.dark-mode .map-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(73, 141, 250, 0.15) 0%, rgba(32, 125, 197, 0.15) 100%);
 }
 
 .map-card:hover {
@@ -468,4 +468,80 @@ body.dark-mode .map-card a {
 
 body.dark-mode .map-card a:hover {
   color: #5a8fff;
+}
+
+/* Estilos para la sección de regiones */
+.regions-section {
+  margin-top: 20px;
+}
+
+.regions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.region-card {
+  background: linear-gradient(135deg, rgba(73, 141, 250, 0.1) 0%, rgba(32, 125, 197, 0.1) 100%);
+  border: 2px solid rgba(73, 141, 250, 0.3);
+  border-radius: 15px;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-mode .region-card {
+  background: linear-gradient(135deg, rgba(73, 141, 250, 0.15) 0%, rgba(32, 125, 197, 0.15) 100%);
+}
+
+.region-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(73, 141, 250, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.region-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(73, 141, 250, 0.25);
+  border-color: rgba(73, 141, 250, 0.6);
+}
+
+.region-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  font-weight: 700;
+  transition: color 0.5s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.dark-mode .region-card h4 {
+  color: #fff;
+}
+
+.region-card h4::before {
+  content: '📍';
+  font-size: 1.2rem;
+}
+
+.region-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #555;
+  transition: color 0.5s ease;
+  text-align: justify;
+}
+
+body.dark-mode .region-card p {
+  color: #ddd;
 }

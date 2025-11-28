@@ -52,6 +52,7 @@ mapasLink.addEventListener("click", () => {
 
 regionesLink.addEventListener("click", () => {
   updatePageTitle("Regiones");
+  fetchRegionData();
   setTimeout(triggerAnimation, 10);
 });
 
@@ -127,6 +128,23 @@ async function fetchMapData() {
     renderMapData(data);
   } catch (error) {
     console.error("Error al obtener la información de los mapas:", error);
+    showErrorMessage();
+  }
+}
+
+// Llamada a la API para la información de regiones
+async function fetchRegionData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/Region"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderRegionData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de las regiones:", error);
     showErrorMessage();
   }
 }
@@ -223,6 +241,22 @@ function renderMapData(data) {
             <a href="${map.urlSource}" target="_blank" rel="noopener">
               Más información
             </a>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+// Renderizar datos de regiones
+function renderRegionData(data) {
+  document.getElementById("general-info").innerHTML = `
+    <section class="regions-section">
+      <div class="regions-grid">
+        ${data.map(region => `
+          <article class="region-card">
+            <h4>${region.id}. Región ${region.name}</h4>
+            <p>${region.description}</p>
           </article>
         `).join("")}
       </div>
