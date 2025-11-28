@@ -149,6 +149,23 @@ async function fetchRegionData() {
   }
 }
 
+// Llamada a la API para la info de departamentos
+async function fetchDepartmentData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/Department"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderDepartmentData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de los departamentos:", error);
+    showErrorMessage();
+  }
+}
+
 // Renderizar información general
 function renderCountryInfo(data) {
   updatePageTitle("Información General");
