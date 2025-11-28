@@ -7,6 +7,8 @@ const departamentosLink = document.getElementById("departamentos-link");
 const turismoLink = document.getElementById("turismo-link");
 const gastronomiaLink = document.getElementById("gastronomia-link");
 
+let departmentsData = [];
+
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
   body.classList.add("dark-mode");
@@ -58,6 +60,7 @@ regionesLink.addEventListener("click", () => {
 
 departamentosLink.addEventListener("click", () => {
   updatePageTitle("Departamentos");
+  fetchDepartmentData();
   setTimeout(triggerAnimation, 10);
 });
 
@@ -159,6 +162,9 @@ async function fetchDepartmentData() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+    
+    departmentsData = data;
+    
     renderDepartmentData(data);
   } catch (error) {
     console.error("Error al obtener la información de los departamentos:", error);
@@ -279,6 +285,154 @@ function renderRegionData(data) {
       </div>
     </section>
   `;
+}
+
+// Renderizar datos de departamentos
+const departmentIcons = {
+  capital: '<i class="fas fa-city"></i>',
+  population: '<i class="fas fa-users"></i>',
+  surface: '<i class="fas fa-map"></i>',
+  municipalities: '<i class="fas fa-building"></i>',
+  phone: '<i class="fas fa-phone"></i>'
+};
+
+function renderDepartmentData(data) {
+  document.getElementById("general-info").innerHTML = `
+    <section class="departments-section">
+      <div class="departments-grid">
+        ${data.map(department => renderDepartmentCard(department)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderDepartmentCard(dept) {
+  return `
+    <article class="department-card" data-department-id="${dept.id}">
+      <div class="department-header">
+        <h3>${dept.name}</h3>
+      </div>
+
+      <p class="department-description">${dept.description}</p>
+
+      <div class="department-stats">
+        <div class="stat">
+          ${departmentIcons.capital}
+          <span>${dept.cityCapital?.name || 'N/A'}</span>
+        </div>
+        <div class="stat">
+          ${departmentIcons.population}
+          <span>${dept.population}</span>
+        </div>
+        <div class="stat">
+          ${departmentIcons.municipalities}
+          <span>${dept.municipalities} municipios</span>
+        </div>
+      </div>
+
+      <button class="btn-details" onclick="showDepartmentDetails(${dept.id})">
+        Ver más detalles
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </article>
+  `;
+}
+
+function showDepartmentDetails(departmentId) {
+  const dept = departmentsData.find(d => d.id === departmentId);
+  if (!dept) return;
+
+  // Modal con toda la información
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="modal-header">
+        <h2>${dept.name}</h2>
+      </div>
+
+      <div class="modal-body">
+        <p class="full-description">${dept.description}</p>
+
+        <div class="detail-section">
+          <h3>Información General</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              ${icons.capital}
+              <div>
+                <span class="label">Capital</span>
+                <span class="value">${dept.cityCapital?.name || 'N/A'}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              ${departmentIcons.population}
+              <div>
+                <span class="label">Población</span>
+                <span class="value">${dept.population} habitantes</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              ${departmentIcons.surface}
+              <div>
+                <span class="label">Superficie</span>
+                <span class="value">${dept.surface} km²</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              ${departmentIcons.municipalities}
+              <div>
+                <span class="label">Municipios</span>
+                <span class="value">${dept.municipalities}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              ${departmentIcons.phone}
+              <div>
+                <span class="label">Prefijo telefónico</span>
+                <span class="value">+57 ${dept.phonePrefix}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        ${dept.cityCapital ? `
+          <div class="detail-section">
+            <h3>Sobre ${dept.cityCapital.name}</h3>
+            <p>${dept.cityCapital.description}</p>
+            <div class="capital-stats">
+              <div class="stat-box">
+                <i class="fas fa-users"></i>
+                <span>${dept.cityCapital.population}</span>
+                <small>Habitantes</small>
+              </div>
+              <div class="stat-box">
+                <i class="fas fa-map"></i>
+                <span>${dept.cityCapital.surface} km²</span>
+                <small>Superficie</small>
+              </div>
+              <div class="stat-box">
+                <i class="fas fa-envelope"></i>
+                <span>${dept.cityCapital.postalCode}</span>
+                <small>Código postal</small>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
 }
 
 // Mensaje de error
