@@ -1,5 +1,11 @@
 const themeToggle = document.getElementById("theme-toggle");
 const body = document.body;
+const generalLink = document.getElementById("p-title");
+const mapasLink = document.getElementById("mapas-link");
+const regionesLink = document.getElementById("regiones-link");
+const departamentosLink = document.getElementById("departamentos-link");
+const turismoLink = document.getElementById("turismo-link");
+const gastronomiaLink = document.getElementById("gastronomia-link");
 
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
@@ -14,6 +20,54 @@ themeToggle.addEventListener("click", () => {
   } else {
     localStorage.setItem("theme", "light");
   }
+});
+
+function updatePageTitle(title) {
+  const heading = document.getElementById("country-heading");
+  if (heading) {
+    heading.textContent = title;
+  }
+}
+
+function triggerAnimation() {
+  const infoSection = document.getElementById("general-info");
+  if (infoSection) {
+    infoSection.style.animation = "none";
+    void infoSection.offsetWidth;
+    infoSection.style.animation = "fadeIn 0.5s ease-in";
+  }
+}
+
+generalLink.addEventListener("click", () => {
+  updatePageTitle("Información General");
+  fetchCountryInfo();
+  setTimeout(triggerAnimation, 10);
+});
+
+mapasLink.addEventListener("click", () => {
+  updatePageTitle("Mapas");
+  fetchMapData();
+  setTimeout(triggerAnimation, 10);
+});
+
+regionesLink.addEventListener("click", () => {
+  updatePageTitle("Regiones");
+  setTimeout(triggerAnimation, 10);
+});
+
+departamentosLink.addEventListener("click", () => {
+  updatePageTitle("Departamentos");
+  setTimeout(triggerAnimation, 10);
+});
+
+turismoLink.addEventListener("click", () => {
+  updatePageTitle("Turismo");
+  setTimeout(triggerAnimation, 10);
+});
+
+gastronomiaLink.addEventListener("click", () => {
+  updatePageTitle("Gastronomía");
+  setTimeout(triggerAnimation, 10);
 });
 
 // Navegación suave
@@ -41,7 +95,7 @@ const icons = {
   domain: '<i class="fas fa-globe"></i>',
 };
 
-// Llamada a la API
+// Llamada a la API para obtener información general del país
 async function fetchCountryInfo() {
   try {
     const response = await fetch(
@@ -60,8 +114,26 @@ async function fetchCountryInfo() {
   }
 }
 
+// Llamada a la API para obtener información de los mapas
+async function fetchMapData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/Map"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderMapData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de los mapas:", error);
+    showErrorMessage();
+  }
+}
+
 // Renderizar información general
 function renderCountryInfo(data) {
+  updatePageTitle("Información General");
   const infoSection = document.getElementById("general-info");
 
   infoSection.innerHTML = `
@@ -133,12 +205,41 @@ function renderInfoCard(icon, title, value) {
   `;
 }
 
+// Renderizar datos de mapas
+function renderMapData(data) {
+  const mapsSection = document.getElementById("general-info");
+
+  const mapsArray = Array.isArray(data) ? data : [];
+
+  mapsSection.innerHTML = `
+    <section class="maps-section" aria-label="Mapas de Colombia">
+      <div class="maps-grid" role="list">
+        ${mapsArray
+          .map((map) => `
+            <article class="map-card" role="listitem">
+              <img
+                src="${map.urlImages ? map.urlImages[0] : ''}"
+                alt="Mapa de ${map.type || ''} de Colombia"
+                class="map-image"
+                loading="lazy"
+              />
+              <h4>${map.name || 'Sin nombre'}</h4>
+              <p>${map.description || ''}</p>
+              <p><a href="${map.urlSource || '#'}" target="_blank" rel="noopener">Más información</a></p>
+            </article>
+          `)
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 // Mensaje de error
 function showErrorMessage() {
   const infoSection = document.getElementById("general-info");
   infoSection.innerHTML = `
     <aside class="error-message" role="alert" aria-live="polite">
-      <p>❌ Error al cargar la información. Por favor, intenta de nuevo más tarde.</p>
+      <p>Error al cargar la información. Por favor, intenta de nuevo más tarde.</p>
     </aside>
   `;
 }

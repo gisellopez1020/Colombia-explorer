@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 :root {
@@ -23,7 +24,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   padding: 15px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 body.dark-mode {
@@ -42,19 +43,18 @@ body.dark-mode {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 100px; /* Más redondeado como DevSenior */
+  border-radius: 100px;
 
-  /* Glassmorphism mejorado */
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-  /* Borde muy sutil */
   border: 1px solid rgba(255, 255, 255, 0.15);
 
-  /* Sombra más dramática */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15),
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.229),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  transition: all 0.5s ease;
 }
 
 body.dark-mode .banner {
@@ -64,7 +64,8 @@ body.dark-mode .banner {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-header h1 {
+.p-title {
+  cursor: pointer;
   font-size: 1.5rem;
   margin-right: auto;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.279);
@@ -172,6 +173,7 @@ main {
   padding: 40px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.6s ease-in;
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 body.dark-mode #general-info {
@@ -196,6 +198,7 @@ body.dark-mode #general-info {
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  transition: border-color 0.5s ease;
 }
 
 body.dark-mode .country-header {
@@ -214,6 +217,7 @@ body.dark-mode .country-header {
   font-weight: 700;
   margin-bottom: 5px;
   color: #2c3e50;
+  transition: color 0.4s ease;
 }
 
 body.dark-mode .country-title h3 {
@@ -223,6 +227,7 @@ body.dark-mode .country-title h3 {
 .country-subtitle {
   font-size: 1.1rem;
   color: #7f8c8d;
+  transition: color 0.4s ease;
 }
 
 body.dark-mode .country-subtitle {
@@ -237,6 +242,7 @@ body.dark-mode .country-subtitle {
   text-align: justify;
   letter-spacing: 0.5px;
   line-height: 2;
+  transition: color 0.4s ease;
 }
 
 body.dark-mode .country-description {
@@ -290,6 +296,7 @@ body.dark-mode .country-description {
   padding: 25px;
   border-radius: 15px;
   text-align: center;
+  transition: background 0.5s ease;
 }
 
 body.dark-mode .borders-section {
@@ -300,6 +307,7 @@ body.dark-mode .borders-section {
   font-size: 1.5rem;
   margin-bottom: 20px;
   color: #2c3e50;
+  transition: color 0.5s ease;
 }
 
 body.dark-mode .borders-section h3 {
@@ -363,4 +371,101 @@ footer a:hover {
 body.dark-mode .error-message {
   background: rgba(255, 59, 48, 0.2);
   color: #ff6b6b;
+}
+
+/* Estilos para la sección de mapas */
+.maps-section {
+  margin-top: 20px;
+}
+
+.maps-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-align: center;
+  transition: color 0.5s ease;
+}
+
+body.dark-mode .maps-section h3 {
+  color: #fff;
+}
+
+.maps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.map-card {
+  background: rgba(0, 0, 0, 0.03);
+  border: 2px solid rgba(73, 141, 250, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.5s ease;
+  overflow: hidden;
+}
+
+body.dark-mode .map-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.map-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(73, 141, 250, 0.6);
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-weight: 600;
+  transition: color 0.5s ease;
+}
+
+body.dark-mode .map-card h4 {
+  color: #fff;
+}
+
+.map-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 10px;
+  transition: color 0.5s ease;
+}
+
+body.dark-mode .map-card p {
+  color: #ddd;
+}
+
+.map-card a {
+  color: #498dfa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.map-card a:hover {
+  color: #207dc5;
+  text-decoration: underline;
+}
+
+body.dark-mode .map-card a {
+  color: #7fa8ff;
+}
+
+body.dark-mode .map-card a:hover {
+  color: #5a8fff;
 }
