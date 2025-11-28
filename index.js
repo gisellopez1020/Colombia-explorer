@@ -207,28 +207,24 @@ function renderInfoCard(icon, title, value) {
 
 // Renderizar datos de mapas
 function renderMapData(data) {
-  const mapsSection = document.getElementById("general-info");
-
-  const mapsArray = Array.isArray(data) ? data : [];
-
-  mapsSection.innerHTML = `
-    <section class="maps-section" aria-label="Mapas de Colombia">
-      <div class="maps-grid" role="list">
-        ${mapsArray
-          .map((map) => `
-            <article class="map-card" role="listitem">
-              <img
-                src="${map.urlImages ? map.urlImages[0] : ''}"
-                alt="Mapa de ${map.type || ''} de Colombia"
-                class="map-image"
-                loading="lazy"
-              />
-              <h4>${map.name || 'Sin nombre'}</h4>
-              <p>${map.description || ''}</p>
-              <p><a href="${map.urlSource || '#'}" target="_blank" rel="noopener">Más información</a></p>
-            </article>
-          `)
-          .join("")}
+  document.getElementById("general-info").innerHTML = `
+    <section class="maps-section">
+      <div class="maps-grid">
+        ${data.map(map => `
+          <article class="map-card">
+            <img
+              src="${map.urlImages[0]}"
+              alt="${map.name}"
+              class="map-image"
+              loading="lazy"
+            />
+            <h4>${map.name}</h4>
+            <p>${map.description}</p>
+            <a href="${map.urlSource}" target="_blank" rel="noopener">
+              Más información
+            </a>
+          </article>
+        `).join("")}
       </div>
     </section>
   `;
