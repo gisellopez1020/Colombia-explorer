@@ -4,6 +4,7 @@ import renderRegionData from './regions-section.js';
 import renderDepartmentData from './departments-section.js';
 import renderTourismData from './tourism-section.js';
 import renderGastronomyData from './gastronomy-section.js';
+import renderSpeciesData from './species-section.js';
 
 const themeToggle = document.getElementById("theme-toggle");
 const body = document.body;
@@ -13,6 +14,7 @@ const regionesLink = document.getElementById("regiones-link");
 const departamentosLink = document.getElementById("departamentos-link");
 const turismoLink = document.getElementById("turismo-link");
 const gastronomiaLink = document.getElementById("gastronomia-link");
+const especiesLink = document.getElementById("especies-link");
 const menuToggle = document.getElementById("menu-toggle");
 const mainNav = document.getElementById("main-nav");
 
@@ -113,6 +115,12 @@ turismoLink.addEventListener("click", () => {
 gastronomiaLink.addEventListener("click", () => {
   updatePageTitle("Platos Típicos");
   fetchGastronomyData();
+  setTimeout(triggerAnimation, 10);
+});
+
+especiesLink.addEventListener("click", () => {
+  updatePageTitle("Especies invasoras");
+  fetchSpeciesData();
   setTimeout(triggerAnimation, 10);
 });
 
@@ -241,6 +249,23 @@ async function fetchGastronomyData() {
     renderGastronomyData(data);
   } catch (error) {
     console.error("Error al obtener la información de gastronomía:", error);
+    showErrorMessage();
+  }
+}
+
+// Llamada a la API para la info de fauna invasiva
+async function fetchSpeciesData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/Invasivespecie"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderSpeciesData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de fauna invasiva:", error);
     showErrorMessage();
   }
 }
