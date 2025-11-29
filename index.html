@@ -19,6 +19,18 @@
   </head>
   <body>
     <header class="banner">
+      <button 
+        id="menu-toggle" 
+        class="menu-toggle" 
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      
       <img
         src="assets/logo.png"
         alt="Colombia explorer logo"
@@ -27,7 +39,7 @@
         height="3%"
       />
       <h1 class="p-title" id="p-title">Colombia Explorer</h1>
-      <nav role="navigation" aria-label="Navegación principal">
+      <nav role="navigation" aria-label="Navegación principal" id="main-nav">
         <ul>
           <li><a href="#mapas" id="mapas-link">Mapas</a></li>
           <li><a href="#regiones" id="regiones-link">Regiones</a></li>
