@@ -15,7 +15,9 @@ main {
 }
 
 #general-info {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 2px solid rgba(73, 141, 250, 0.3);
   border-radius: 20px;
   padding: 40px;
@@ -25,7 +27,7 @@ main {
 }
 
 body.dark-mode #general-info {
-  background: rgba(30, 30, 50, 0.95);
+  background: rgba(30, 30, 50, 0.75);
 }
 
 @keyframes fadeIn {
