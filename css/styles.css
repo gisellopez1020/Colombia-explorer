@@ -301,7 +301,6 @@ body.dark-mode .error-message {
     border-radius: 50px;
     flex-wrap: nowrap;
     gap: 10px;
-    position: relative;
   }
 
   .menu-toggle {
