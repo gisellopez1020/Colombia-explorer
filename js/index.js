@@ -13,6 +13,8 @@ const regionesLink = document.getElementById("regiones-link");
 const departamentosLink = document.getElementById("departamentos-link");
 const turismoLink = document.getElementById("turismo-link");
 const gastronomiaLink = document.getElementById("gastronomia-link");
+const menuToggle = document.getElementById("menu-toggle");
+const mainNav = document.getElementById("main-nav");
 
 let departmentsData = [];
 let tourismData = [];
@@ -29,6 +31,28 @@ themeToggle.addEventListener("click", () => {
     localStorage.setItem("theme", "dark");
   } else {
     localStorage.setItem("theme", "light");
+  }
+});
+
+// Funcionalidad del menú hamburguesa
+menuToggle.addEventListener("click", () => {
+  menuToggle.classList.toggle("active");
+  mainNav.classList.toggle("active");
+  body.classList.toggle("menu-open");
+  
+  const isExpanded = mainNav.classList.contains("active");
+  menuToggle.setAttribute("aria-expanded", isExpanded);
+});
+
+// Cerrar menú
+body.addEventListener("click", (e) => {
+  if (body.classList.contains("menu-open") && 
+      !mainNav.contains(e.target) && 
+      !menuToggle.contains(e.target)) {
+    menuToggle.classList.remove("active");
+    mainNav.classList.remove("active");
+    body.classList.remove("menu-open");
+    menuToggle.setAttribute("aria-expanded", "false");
   }
 });
 
@@ -52,6 +76,14 @@ generalLink.addEventListener("click", () => {
   updatePageTitle("Información General");
   fetchCountryInfo();
   setTimeout(triggerAnimation, 10);
+  
+  // Cerrar menú móvil
+  if (window.innerWidth <= 768) {
+    menuToggle.classList.remove("active");
+    mainNav.classList.remove("active");
+    body.classList.remove("menu-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+  }
 });
 
 mapasLink.addEventListener("click", () => {
@@ -84,7 +116,7 @@ gastronomiaLink.addEventListener("click", () => {
   setTimeout(triggerAnimation, 10);
 });
 
-// Navegación suave
+// Navegación suave y cerrar menú móvil
 const navLinks = document.querySelectorAll("nav a");
 navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -93,6 +125,14 @@ navLinks.forEach((link) => {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+    
+    // Cerrar menú móvil al seleccionar una opción
+    if (window.innerWidth <= 768) {
+      menuToggle.classList.remove("active");
+      mainNav.classList.remove("active");
+      body.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
     }
   });
 });
