@@ -26,6 +26,26 @@ body {
   line-height: 1.6;
   padding: 15px;
   transition: all 0.5s ease;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/mapa.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+  opacity: 0.879;
+  transition: opacity 0.5s ease;
+  filter: brightness(0) saturate(100%) 
+          invert(48%) sepia(94%) saturate(1729%) 
+          hue-rotate(200deg) brightness(102%) contrast(95%);
 }
 
 body.dark-mode {
@@ -33,6 +53,11 @@ body.dark-mode {
   --bg-gradient-end: #16213e;
   --text-color: #f4f4f4;
   --header-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Color del mapa en modo oscuro */
+body.dark-mode::before {
+  opacity: 0.3;
 }
 
 .banner {
