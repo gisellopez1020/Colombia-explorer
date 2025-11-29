@@ -3,6 +3,7 @@ import renderMapData from './maps-section.js';
 import renderRegionData from './regions-section.js';
 import renderDepartmentData from './departments-section.js';
 import renderTourismData from './tourism-section.js';
+import renderGastronomyData from './gastronomy-section.js';
 
 const themeToggle = document.getElementById("theme-toggle");
 const body = document.body;
@@ -78,7 +79,8 @@ turismoLink.addEventListener("click", () => {
 });
 
 gastronomiaLink.addEventListener("click", () => {
-  updatePageTitle("Gastronomía");
+  updatePageTitle("Platos Típicos");
+  fetchGastronomyData();
   setTimeout(triggerAnimation, 10);
 });
 
@@ -182,6 +184,23 @@ async function fetchTourismData() {
     renderTourismData(data);
   } catch (error) {
     console.error("Error al obtener la información de turismo:", error);
+    showErrorMessage();
+  }
+}
+
+// Llamada a la API para la info de gastronomía
+async function fetchGastronomyData() {
+  try {
+    const response = await fetch(
+      "https://api-colombia.com/api/v1/TypicalDish"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    renderGastronomyData(data);
+  } catch (error) {
+    console.error("Error al obtener la información de gastronomía:", error);
     showErrorMessage();
   }
 }
