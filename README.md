@@ -55,7 +55,7 @@
 
 ## 🎨 Demo
 
-🔗 **[Ver Demo en Vivo](https://gisellopez1020.github.io/Colombia-explorer/)**
+🔗 **<a href="https://gisellopez1020.github.io/Colombia-explorer/" target="_blank" rel="noopener noreferrer">Ver Demo en Vivo</a>**
 
 ### Screenshots
 
@@ -256,7 +256,7 @@ El sitio está optimizado para tres breakpoints principales:
 
 - GitHub: [@gisellopez1020](https://github.com/gisellopez1020)
 - Proyecto: [Colombia Explorer](https://github.com/gisellopez1020/Colombia-explorer)
-- Despliegue: [Colombia Explorer en GitHub Pages](https://gisellopez1020.github.io/Colombia-explorer/)
+- Despliegue: <a href="https://gisellopez1020.github.io/Colombia-explorer/" target="_blank" rel="noopener noreferrer">Colombia Explorer en GitHub Pages</a>
 
 ---
 
