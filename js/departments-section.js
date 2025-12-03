@@ -70,7 +70,7 @@ function showDepartmentDetails(departmentId) {
         <i class="fas fa-times" aria-hidden="true"></i>
       </button>
 
-      <header class="modal-header">
+      <header class="modal-header-dep">
         <h2 id="modal-title">${dept.name}</h2>
       </header>
 
