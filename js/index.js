@@ -65,6 +65,13 @@ export function updatePageTitle(title) {
   }
 }
 
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 function triggerAnimation() {
   const infoSection = document.getElementById("general-info");
   if (infoSection) {
@@ -75,6 +82,7 @@ function triggerAnimation() {
 }
 
 generalLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Información General");
   fetchCountryInfo();
   setTimeout(triggerAnimation, 10);
@@ -89,36 +97,42 @@ generalLink.addEventListener("click", () => {
 });
 
 mapasLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Mapas");
   fetchMapData();
   setTimeout(triggerAnimation, 10);
 });
 
 regionesLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Regiones");
   fetchRegionData();
   setTimeout(triggerAnimation, 10);
 });
 
 departamentosLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Departamentos");
   fetchDepartmentData();
   setTimeout(triggerAnimation, 10);
 });
 
 turismoLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Turismo");
   fetchTourismData();
   setTimeout(triggerAnimation, 10);
 });
 
 gastronomiaLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Platos Típicos");
   fetchGastronomyData();
   setTimeout(triggerAnimation, 10);
 });
 
 especiesLink.addEventListener("click", () => {
+  scrollToTop();
   updatePageTitle("Especies invasoras");
   fetchSpeciesData();
   setTimeout(triggerAnimation, 10);
