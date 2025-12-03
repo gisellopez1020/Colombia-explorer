@@ -188,3 +188,111 @@ body.dark-mode .borders-section h3 {
 .border-tag:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 768px) {
+  #country-heading {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  #general-info {
+    padding: 25px;
+  }
+
+  .country-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .country-flag {
+    width: 80px;
+  }
+
+  .country-title h3 {
+    font-size: 1.8rem;
+  }
+
+  .country-subtitle {
+    font-size: 1rem;
+  }
+
+  .country-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .country-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .info-card {
+    padding: 20px 15px;
+  }
+
+  .info-icon {
+    font-size: 2rem;
+  }
+
+  .info-card h4 {
+    font-size: 0.9rem;
+  }
+
+  .info-card p {
+    font-size: 1rem;
+  }
+
+  .borders-section {
+    padding: 20px;
+  }
+
+  .borders-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .border-tag {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #country-heading {
+    font-size: 1.5rem;
+  }
+
+  #general-info {
+    padding: 20px;
+  }
+
+  .country-flag {
+    width: 60px;
+  }
+
+  .country-title h3 {
+    font-size: 1.5rem;
+  }
+
+  .country-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .country-description {
+    font-size: 0.95rem;
+  }
+
+  .country-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .info-card {
+    padding: 18px 12px;
+  }
+
+  .borders-section h3 {
+    font-size: 1.2rem;
+  }
+}
