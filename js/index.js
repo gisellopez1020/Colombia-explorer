@@ -87,8 +87,8 @@ generalLink.addEventListener("click", () => {
   fetchCountryInfo();
   setTimeout(triggerAnimation, 10);
   
-  // Cerrar menú móvil
-  if (window.innerWidth <= 768) {
+  // Cerrar menú móvil y tablet
+  if (window.innerWidth <= 1024) {
     menuToggle.classList.remove("active");
     mainNav.classList.remove("active");
     body.classList.remove("menu-open");
@@ -138,7 +138,7 @@ especiesLink.addEventListener("click", () => {
   setTimeout(triggerAnimation, 10);
 });
 
-// Navegación suave y cerrar menú móvil
+// Navegación suave y cerrar menú móvil/tablet
 const navLinks = document.querySelectorAll("nav a");
 navLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -149,8 +149,8 @@ navLinks.forEach((link) => {
       targetElement.scrollIntoView({ behavior: "smooth" });
     }
     
-    // Cerrar menú móvil al seleccionar una opción
-    if (window.innerWidth <= 768) {
+    // Cerrar menú móvil y tablet al seleccionar una opción
+    if (window.innerWidth <= 1024) {
       menuToggle.classList.remove("active");
       mainNav.classList.remove("active");
       body.classList.remove("menu-open");
