@@ -11,6 +11,9 @@ let currentTourismIndex = 0;
 export default function renderTourismData(data) {
   tourismData = data;
   currentTourismIndex = 0;
+  
+  const isMobile = window.innerWidth <= 768;
+  
   document.getElementById("general-info").innerHTML = `
     <section class="tourism-section" aria-label="Atracciones turísticas de Colombia">
       <div class="gallery-container">
@@ -37,6 +40,10 @@ export default function renderTourismData(data) {
       </div>
     </section>
   `;
+  
+  if (isMobile) {
+    setupMobileSwipe();
+  }
 }
 
 function previousAttraction() {
@@ -136,7 +143,7 @@ function showTourismDetails(attractionId) {
         <i class="fas fa-times"></i>
       </button>
 
-      <div class="modal-header modal-header-tourism">
+      <div class="modal-header-tourism">
         <h2>${attraction.name}</h2>
         ${attraction.city ? `
           <div class="modal-subtitle">
@@ -208,6 +215,41 @@ function showTourismDetails(attractionId) {
       modal.remove();
     }
   });
+}
+
+// Configurar gestos de deslizamiento en móvil
+function setupMobileSwipe() {
+  const galleryContent = document.querySelector('.gallery-content');
+  if (!galleryContent) return;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  galleryContent.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  galleryContent.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        if (currentTourismIndex < tourismData.length - 1) {
+          nextAttraction();
+        }
+      } else {
+        if (currentTourismIndex > 0) {
+          previousAttraction();
+        }
+      }
+    }
+  }
 }
 
 window.previousAttraction = previousAttraction;
