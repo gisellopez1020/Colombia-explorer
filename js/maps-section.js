@@ -8,7 +8,6 @@ export default function renderMapData(data) {
               src="${map.urlImages[0]}"
               alt="${map.name}"
               class="map-image"
-              loading="lazy"
             />
             <h4>${map.name}</h4>
             <p>${map.description}</p>
