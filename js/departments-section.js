@@ -1,3 +1,5 @@
+import { createDepartmentSearchBar, initDepartmentSearch } from './searchBar.js';
+
 const departmentIcons = {
   capital: '<i class="fas fa-city"></i>',
   population: '<i class="fas fa-users"></i>',
@@ -12,11 +14,14 @@ export default function renderDepartmentData(data) {
   departmentsData = data;
   document.getElementById("general-info").innerHTML = `
     <section class="departments-section">
+      ${createDepartmentSearchBar()}
       <div class="departments-grid">
         ${data.map(department => renderDepartmentCard(department)).join("")}
       </div>
     </section>
   `;
+
+  initDepartmentSearch();
 }
 
 function renderDepartmentCard(dept) {
