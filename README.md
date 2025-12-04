@@ -40,6 +40,8 @@
 
 ✅ **Especies Invasoras**: Catálogo de especies invasoras clasificadas por nivel de riesgo con información sobre su impacto y manejo.
 
+✅ **Búsqueda Inteligente**: Barra de búsqueda con API para departamentos y platos típicos, con normalización de texto (ignora tildes y acentos) y resultados ordenados por relevancia.
+
 ✅ **Modo Oscuro/Claro**: Alternancia entre temas con transiciones suaves y persistencia en `localStorage`.
 
 ✅ **Diseño Responsive**: Optimizado para dispositivos móviles, tablets y escritorio.
@@ -117,6 +119,7 @@ Colombia-explorer/
 │
 ├── js/                          # Módulos JavaScript
 │   ├── index.js                 # Controlador principal
+│   ├── searchBar.js             # Búsqueda de departamentos y gastronomía
 │   ├── general-info.js          # Renderizado de info general
 │   ├── maps-section.js          # Renderizado de mapas
 │   ├── regions-section.js       # Renderizado de regiones
@@ -187,39 +190,49 @@ El proyecto consume los siguientes endpoints de [API Colombia](https://api-colom
 | `GET /api/v1/Map` | Lista de mapas disponibles | Sección Mapas |
 | `GET /api/v1/Region` | Regiones naturales de Colombia | Sección Regiones |
 | `GET /api/v1/Department` | Departamentos de Colombia | Sección Departamentos |
+| `GET /api/v1/Department/search/{keyword}` | Búsqueda de departamentos por palabra clave | Barra de búsqueda de departamentos |
 | `GET /api/v1/TouristicAttraction` | Atractivos turísticos | Sección Turismo |
 | `GET /api/v1/TypicalDish` | Platos típicos por departamento | Sección Gastronomía |
+| `GET /api/v1/TypicalDish/search/{keyword}` | Búsqueda de platos típicos por palabra clave | Barra de búsqueda de gastronomía |
 | `GET /api/v1/Invasivespecie` | Especies invasoras | Sección Especies |
 
 ---
 
 ## ✨ Funcionalidades Principales
 
-### 1. Galería de Turismo
+### 1. Búsqueda Inteligente
+- Barra de búsqueda para departamentos y platos típicos
+- Integración con API para resultados en tiempo real
+- Normalización de texto: ignora tildes y acentos ("bogota" encuentra "Bogotá")
+- Sistema de relevancia que prioriza coincidencias exactas
+- Navegación automática al elemento encontrado con efecto de resaltado
+- Resultados con información contextual (capital, departamento de origen)
+
+### 2. Galería de Turismo
 - Navegación con flechas izquierda/derecha
 - Indicadores visuales de posición
 - Modal con información detallada (ciudad, departamento, latitud/longitud)
 - Imágenes responsive con lazy loading
 
-### 2. Departamentos con Estadísticas
+### 3. Departamentos con Estadísticas
 - Tarjetas con información demográfica
 - Uso de HTML semántico (`<dl>`, `<dt>`, `<dd>`)
 - Modal con datos completos: superficie, población, municipios, ciudades
 - Iconos representativos por categoría
 
-### 3. Especies Invasoras
+### 4. Especies Invasoras
 - Clasificación por nivel de riesgo (Alto, Medio, Bajo)
 - Badges de color según peligrosidad
 - Estadísticas generales en el header
 - Modal con información científica, impacto ambiental y manejo
 
-### 4. Gastronomía por Departamento
+### 5. Gastronomía por Departamento
 - Agrupación alfabética automática
 - Sección independiente por cada departamento
 - Diseño de tarjetas consistente
 - Nombres científicos con énfasis tipográfico
 
-### 5. Sistema de Temas
+### 6. Sistema de Temas
 - Toggle con iconos animados (Sol/Luna)
 - Transiciones suaves entre modos (0.5s)
 - Persistencia usando `localStorage`
