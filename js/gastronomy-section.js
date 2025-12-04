@@ -1,15 +1,37 @@
+import { createGastronomySearchBar, initGastronomySearch } from './searchBar.js';
+
+let gastronomyData = [];
+
 export default function renderGastronomyData(data) {
+  gastronomyData = data;
+  
   // Agrupar platos por departamento
   const dishesByDepartment = groupByDepartment(data);
   
   document.getElementById("general-info").innerHTML = `
     <section class="gastronomy-section" aria-label="Gastronomía de Colombia">
+      ${createGastronomySearchBar()}
       ${Object.entries(dishesByDepartment).map(([departmentName, dishes]) => 
         renderDepartmentSection(departmentName, dishes)
       ).join('')}
     </section>
   `;
+
+  initGastronomySearch(data);
 }
+
+// Función global para mostrar detalles del plato
+window.showDishDetails = function(dishId) {
+  const dish = gastronomyData.find(d => d.id === dishId);
+  if (!dish) return;
+  
+  const dishCard = document.getElementById(`dish-${dishId}`);
+  if (dishCard) {
+    dishCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    dishCard.classList.add('highlight-card');
+    setTimeout(() => dishCard.classList.remove('highlight-card'), 2500);
+  }
+};
 
 function groupByDepartment(data) {
   const grouped = {};
@@ -52,7 +74,7 @@ function renderDepartmentSection(departmentName, dishes) {
 
 function renderGastronomyCard(dish) {
   return `
-    <article class="gastronomy-card" role="listitem">
+    <article class="gastronomy-card" role="listitem" id="dish-${dish.id}">
       <div class="gastronomy-image-container">
         <img 
           src="${dish.imageUrl}" 
